@@ -46,21 +46,14 @@ jobs:
       - name: Prepare Release APK Assets
         run: |
           mkdir -p release-apks
-          cp app/build/outputs/apk/debug/*.apk release-apks/CarromDualScreen-v1.0.${{ github.run_number }}-debug.apk
-          cp app/build/outputs/apk/release/*.apk release-apks/CarromDualScreen-v1.0.${{ github.run_number }}-release-unsigned.apk
+          cp app/build/outputs/apk/debug/*.apk release-apks/CarromDualScreen-v1.0.${{ github.run_number }}-signed.apk
           ls -lh release-apks/
 
-      - name: Upload Debug APK Artifact
+      - name: Upload Signed APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: CarromDualScreen-Debug-APK
-          path: release-apks/*-debug.apk
-
-      - name: Upload Unsigned Release APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: CarromDualScreen-Release-Unsigned-APK
-          path: release-apks/*-release-unsigned.apk
+          name: CarromDualScreen-Signed-APK
+          path: release-apks/*-signed.apk
 
       - name: Publish GitHub Release
         if: github.event_name != 'pull_request'
@@ -68,7 +61,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="v1.0.${{ github.run_number }}"
-          gh release create "$TAG" release-apks/*.apk \
+          gh release create "$TAG" release-apks/*-signed.apk \
             --title "Carrom Dual Screen $TAG" \
-            --notes "Automated Native Android APK build (Debug + Unsigned Release) for Carrom Dual Screen (minSdk 26 / targetSdk 34, Kotlin)." \
+            --notes "Signed installable Native Android APK for Carrom Dual Screen (minSdk 26 / targetSdk 34, Kotlin) with 1-Tap Auto Split-Screen support." \
             --latest

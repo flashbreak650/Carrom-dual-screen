@@ -173,27 +173,14 @@ class FloatingWindowService : Service() {
         }
 
         btnSplit.setOnClickListener {
-            val useFreeform = prefs.launchMode == PrefsManager.MODE_FREEFORM
-            val res1 = MultiWindowHelper.launchInMultiWindow(
+            MultiWindowHelper.executeAutoDualScreen(
                 context = this,
-                packageName = prefs.screen1Package,
-                userSerial = prefs.screen1UserSerial,
-                useFreeform = useFreeform,
-                slotIndex = 1,
-                preset = prefs.splitLayoutPreset
-            )
-            tvFeedback.text = res1.message
-            mainHandler.postDelayed({
-                val res2 = MultiWindowHelper.launchInMultiWindow(
-                    context = this,
-                    packageName = prefs.screen2Package,
-                    userSerial = prefs.screen2UserSerial,
-                    useFreeform = useFreeform,
-                    slotIndex = 2,
-                    preset = prefs.splitLayoutPreset
-                )
-                tvFeedback.text = "${res1.message} | ${res2.message}"
-            }, 450L)
+                handler = mainHandler,
+                prefs = prefs,
+                launchScreen1First = false
+            ) { status ->
+                tvFeedback.text = status
+            }
         }
 
         btnDash.setOnClickListener {

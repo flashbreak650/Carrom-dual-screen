@@ -105,6 +105,45 @@ object PermissionHelper {
         }
     }
 
+    fun openAccessibilitySettings(context: Context) {
+        val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        if (!safeStartActivity(context, intent)) {
+            openAppDetailsSettings(context)
+        }
+    }
+
+    fun openTecnoAppTwinSettings(context: Context) {
+        val twinCandidates = listOf(
+            ComponentName(
+                "com.transsion.dualapp",
+                "com.transsion.dualapp.MainActivity"
+            ),
+            ComponentName(
+                "com.android.settings",
+                "com.android.settings.Settings\$AppTwinSettingsActivity"
+            ),
+            ComponentName(
+                "com.android.settings",
+                "com.transsion.settings.AppCloneSettingsActivity"
+            )
+        )
+        for (component in twinCandidates) {
+            val intent = Intent().apply {
+                this.component = component
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            if (safeStartActivity(context, intent)) {
+                return
+            }
+        }
+        val settingsIntent = Intent(Settings.ACTION_SETTINGS).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        safeStartActivity(context, settingsIntent)
+    }
+
     fun openCarromPlayStore(context: Context, packageName: String) {
         val marketIntent = Intent(
             Intent.ACTION_VIEW,

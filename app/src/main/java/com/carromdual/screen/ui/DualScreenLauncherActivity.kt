@@ -115,6 +115,14 @@ class DualScreenLauncherActivity : AppCompatActivity() {
             startDualSequence()
         }
 
+        binding.btnQuickAutoSplitSetup.setOnClickListener {
+            PermissionHelper.openAccessibilitySettings(this)
+        }
+
+        binding.btnQuickAppTwinSetup.setOnClickListener {
+            PermissionHelper.openTecnoAppTwinSettings(this)
+        }
+
         binding.btnToggleFloatingHere.setOnClickListener {
             if (!PermissionHelper.hasOverlayPermission(this)) {
                 Toast.makeText(this, "Grant Overlay permission first", Toast.LENGTH_LONG).show()
@@ -130,38 +138,25 @@ class DualScreenLauncherActivity : AppCompatActivity() {
     }
 
     private fun startDualSequence() {
-        val useFreeform = prefs.launchMode == PrefsManager.MODE_FREEFORM
         val samePackageSameUser = prefs.screen1Package == prefs.screen2Package &&
             prefs.screen1UserSerial == prefs.screen2UserSerial
 
         if (samePackageSameUser) {
-            binding.tvLaunchStatusOutput.text =
-                "Warning: Screen 1 and Screen 2 point to the exact same single Carrom Pool profile. " +
-                    "Android/Unity typically blocks 2 simultaneous tasks of the same APK unless you select a Tecno App Twin or Work Profile instance for Screen 2. Attempting launch…"
+            Toast.makeText(
+                this,
+                "Tip: Select a Twin / Work Profile app in Screen 2 for 2 separate Carrom Pool boards",
+                Toast.LENGTH_LONG
+            ).show()
         }
 
-        val res1 = MultiWindowHelper.launchInMultiWindow(
+        MultiWindowHelper.executeAutoDualScreen(
             context = this,
-            packageName = prefs.screen1Package,
-            userSerial = prefs.screen1UserSerial,
-            useFreeform = useFreeform,
-            slotIndex = 1,
-            preset = prefs.splitLayoutPreset
-        )
-
-        handler.postDelayed({
-            val res2 = MultiWindowHelper.launchInMultiWindow(
-                context = this,
-                packageName = prefs.screen2Package,
-                userSerial = prefs.screen2UserSerial,
-                useFreeform = useFreeform,
-                slotIndex = 2,
-                preset = prefs.splitLayoutPreset
-            )
-            binding.tvLaunchStatusOutput.text =
-                "Screen 1: ${res1.message} (${res1.technicalNote})\n" +
-                    "Screen 2: ${res2.message} (${res2.technicalNote})"
-        }, 500L)
+            handler = handler,
+            prefs = prefs,
+            launchScreen1First = true
+        ) { status ->
+            binding.tvLaunchStatusOutput.text = status
+        }
     }
 
     private fun refreshSlotLabels() {

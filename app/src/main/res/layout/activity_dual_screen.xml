@@ -299,6 +299,37 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnQuickAutoSplitSetup"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_secondary"
+                android:text="1-Tap Split Setup"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btnQuickAppTwinSetup"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_secondary"
+                android:text="Clone (App Twin)"
+                android:textAllCaps="false"
+                android:textColor="@color/emerald_neon"
+                android:textSize="12sp" />
+        </LinearLayout>
+
         <!-- Status Output -->
         <LinearLayout
             android:layout_width="match_parent"

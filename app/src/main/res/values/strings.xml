@@ -44,5 +44,9 @@
     <string name="floating_screen2">Screen 2</string>
     <string name="floating_split">Split Mode</string>
     <string name="floating_dashboard">Dashboard</string>
-    <string name="floating_note">Uses Android Multi-Window &amp; App Twin/Work Profile. Android OS does not allow copying another app\'s live game canvas into an overlay.</string>
+    <string name="floating_note">Uses Android Multi-Window &amp; App Twin/Work Profile. Enable Auto Split Service for 1-tap Split-Screen.</string>
+
+    <!-- Accessibility Auto-Split -->
+    <string name="accessibility_service_label">Carrom Dual Screen Auto-Split</string>
+    <string name="accessibility_service_desc">Triggers Android Split-Screen mode when you tap Split Mode in Carrom Dual Screen. Does not read screen content.</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.carromdual.screen.R
 import com.carromdual.screen.databinding.ActivityPermissionManagerBinding
+import com.carromdual.screen.service.DualScreenAccessibilityService
 import com.carromdual.screen.utils.PermissionHelper
 
 class PermissionManagerActivity : AppCompatActivity() {
@@ -60,6 +61,10 @@ class PermissionManagerActivity : AppCompatActivity() {
         binding.btnOpenDevOptions.setOnClickListener {
             PermissionHelper.openDeveloperOptions(this)
         }
+
+        binding.btnEnableAutoSplit.setOnClickListener {
+            PermissionHelper.openAccessibilitySettings(this)
+        }
     }
 
     override fun onResume() {
@@ -71,6 +76,7 @@ class PermissionManagerActivity : AppCompatActivity() {
         val overlayOk = PermissionHelper.hasOverlayPermission(this)
         val notifOk = PermissionHelper.hasNotificationPermission(this)
         val batteryOk = PermissionHelper.isIgnoringBatteryOptimizations(this)
+        val autoSplitOk = DualScreenAccessibilityService.isEnabled()
 
         if (overlayOk) {
             binding.tvOverlayStatus.text = "Granted"
@@ -100,6 +106,16 @@ class PermissionManagerActivity : AppCompatActivity() {
             binding.tvBatteryStatus.text = "Optimized"
             binding.tvBatteryStatus.setBackgroundResource(R.drawable.bg_status_badge_amber)
             binding.tvBatteryStatus.setTextColor(ContextCompat.getColor(this, R.color.status_warning))
+        }
+
+        if (autoSplitOk) {
+            binding.tvAutoSplitStatus.text = "Enabled"
+            binding.tvAutoSplitStatus.setBackgroundResource(R.drawable.bg_status_badge_green)
+            binding.tvAutoSplitStatus.setTextColor(ContextCompat.getColor(this, R.color.emerald_neon))
+        } else {
+            binding.tvAutoSplitStatus.text = "Optional"
+            binding.tvAutoSplitStatus.setBackgroundResource(R.drawable.bg_status_badge_amber)
+            binding.tvAutoSplitStatus.setTextColor(ContextCompat.getColor(this, R.color.status_warning))
         }
     }
 }

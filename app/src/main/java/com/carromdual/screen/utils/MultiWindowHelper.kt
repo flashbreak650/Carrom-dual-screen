@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.LauncherApps
 import android.graphics.Rect
 import android.os.Build
+import android.os.Handler
 import android.os.UserHandle
 import android.os.UserManager
 import android.util.DisplayMetrics
@@ -13,8 +14,75 @@ import android.view.WindowManager
 import com.carromdual.screen.data.PrefsManager
 import com.carromdual.screen.model.AppProfileEntry
 import com.carromdual.screen.model.LaunchResult
+import com.carromdual.screen.service.DualScreenAccessibilityService
 
 object MultiWindowHelper {
+
+    fun executeAutoDualScreen(
+        context: Context,
+        handler: Handler,
+        prefs: PrefsManager,
+        launchScreen1First: Boolean,
+        onStatus: (String) -> Unit
+    ) {
+        val useFreeform = prefs.launchMode == PrefsManager.MODE_FREEFORM
+        val triggerSplitAndScreen2 = {
+            if (DualScreenAccessibilityService.isEnabled()) {
+                val toggled = DualScreenAccessibilityService.requestSplitScreenToggle()
+                if (toggled) {
+                    onStatus("Split-Screen triggered! Launching Screen 2…")
+                    handler.postDelayed({
+                        val res2 = launchInMultiWindow(
+                            context = context,
+                            packageName = prefs.screen2Package,
+                            userSerial = prefs.screen2UserSerial,
+                            useFreeform = useFreeform,
+                            slotIndex = 2,
+                            preset = prefs.splitLayoutPreset
+                        )
+                        onStatus("Dual Screen active: ${res2.message}")
+                    }, 750L)
+                } else {
+                    onStatus(
+                        "System blocked Auto Split toggle. Use Recent Apps → Split Screen, then tap Screen 2."
+                    )
+                    val res2 = launchInMultiWindow(
+                        context = context,
+                        packageName = prefs.screen2Package,
+                        userSerial = prefs.screen2UserSerial,
+                        useFreeform = useFreeform,
+                        slotIndex = 2,
+                        preset = prefs.splitLayoutPreset
+                    )
+                    onStatus("Screen 2 fallback: ${res2.message}")
+                }
+            } else {
+                val res2 = launchInMultiWindow(
+                    context = context,
+                    packageName = prefs.screen2Package,
+                    userSerial = prefs.screen2UserSerial,
+                    useFreeform = useFreeform,
+                    slotIndex = 2,
+                    preset = prefs.splitLayoutPreset
+                )
+                onStatus(
+                    "${res2.message}\nTip: Enable 'Auto Split-Screen Service' in Permission Manager for 1-tap split."
+                )
+            }
+        }
+
+        if (launchScreen1First) {
+            val res1 = launchSingle(context, prefs.screen1Package, prefs.screen1UserSerial)
+            if (!res1.success) {
+                onStatus(res1.message)
+                return
+            }
+            onStatus("Opened Screen 1. Triggering Split-Screen…")
+            handler.postDelayed(triggerSplitAndScreen2, 950L)
+        } else {
+            triggerSplitAndScreen2()
+        }
+    }
 
     fun getAvailableApps(context: Context): List<AppProfileEntry> {
         val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
