@@ -26,6 +26,31 @@ object MultiWindowHelper {
         onStatus: (String) -> Unit
     ) {
         val useFreeform = prefs.launchMode == PrefsManager.MODE_FREEFORM
+
+        if (useFreeform) {
+            val res1 = launchInMultiWindow(
+                context = context,
+                packageName = prefs.screen1Package,
+                userSerial = prefs.screen1UserSerial,
+                useFreeform = true,
+                slotIndex = 1,
+                preset = prefs.splitLayoutPreset
+            )
+            onStatus("Screen 1 Freeform: ${res1.message}")
+            handler.postDelayed({
+                val res2 = launchInMultiWindow(
+                    context = context,
+                    packageName = prefs.screen2Package,
+                    userSerial = prefs.screen2UserSerial,
+                    useFreeform = true,
+                    slotIndex = 2,
+                    preset = prefs.splitLayoutPreset
+                )
+                onStatus("Freeform Dual:\n1) ${res1.message}\n2) ${res2.message}")
+            }, 650L)
+            return
+        }
+
         val triggerSplitAndScreen2 = {
             if (DualScreenAccessibilityService.isEnabled()) {
                 val toggled = DualScreenAccessibilityService.requestSplitScreenToggle()
@@ -36,37 +61,21 @@ object MultiWindowHelper {
                             context = context,
                             packageName = prefs.screen2Package,
                             userSerial = prefs.screen2UserSerial,
-                            useFreeform = useFreeform,
+                            useFreeform = false,
                             slotIndex = 2,
                             preset = prefs.splitLayoutPreset
                         )
                         onStatus("Dual Screen active: ${res2.message}")
                     }, 750L)
                 } else {
+                    DualScreenAccessibilityService.requestRecents()
                     onStatus(
-                        "System blocked Auto Split toggle. Use Recent Apps → Split Screen, then tap Screen 2."
+                        "Android 12+ blocked 1-tap split toggle. Opening Recents: tap Carrom Pool icon → Split Screen, then tap Screen 2 in Floating Control."
                     )
-                    val res2 = launchInMultiWindow(
-                        context = context,
-                        packageName = prefs.screen2Package,
-                        userSerial = prefs.screen2UserSerial,
-                        useFreeform = useFreeform,
-                        slotIndex = 2,
-                        preset = prefs.splitLayoutPreset
-                    )
-                    onStatus("Screen 2 fallback: ${res2.message}")
                 }
             } else {
-                val res2 = launchInMultiWindow(
-                    context = context,
-                    packageName = prefs.screen2Package,
-                    userSerial = prefs.screen2UserSerial,
-                    useFreeform = useFreeform,
-                    slotIndex = 2,
-                    preset = prefs.splitLayoutPreset
-                )
                 onStatus(
-                    "${res2.message}\nTip: Enable 'Auto Split-Screen Service' in Permission Manager for 1-tap split."
+                    "Enable 'Auto Split-Screen Service' in Permission Manager, OR switch Window Mode to Freeform, OR open Recents → Split Screen and tap Screen 2."
                 )
             }
         }

@@ -42,5 +42,13 @@ class DualScreenAccessibilityService : AccessibilityService() {
         fun requestSplitScreenToggle(): Boolean {
             return instance?.triggerSplitScreen() ?: false
         }
+
+        fun requestRecents(): Boolean {
+            return try {
+                instance?.performGlobalAction(GLOBAL_ACTION_RECENTS) ?: false
+            } catch (_: Throwable) {
+                false
+            }
+        }
     }
 }
