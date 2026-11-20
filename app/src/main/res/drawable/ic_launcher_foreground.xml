@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Left Dual Window Frame -->
+    <path
+        android:fillColor="#13251D"
+        android:strokeColor="#10B981"
+        android:strokeWidth="2.4"
+        android:pathData="M24,30 L50,30 Q52,30 52,32 L52,76 Q52,78 50,78 L24,78 Q22,78 22,76 L22,32 Q22,30 24,30 Z" />
+    <!-- Right Dual Window Frame -->
+    <path
+        android:fillColor="#162E24"
+        android:strokeColor="#00E676"
+        android:strokeWidth="2.4"
+        android:pathData="M58,30 L84,30 Q86,30 86,32 L86,76 Q86,78 84,78 L58,78 Q56,78 56,76 L56,32 Q56,30 58,30 Z" />
+    <!-- Left Carrom Striker Coin -->
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M37,54m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+    <path
+        android:fillColor="#08110D"
+        android:pathData="M37,54m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+    <!-- Right Carrom Striker Coin -->
+    <path
+        android:fillColor="#00E676"
+        android:pathData="M71,54m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+    <path
+        android:fillColor="#08110D"
+        android:pathData="M71,54m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+    <!-- Top Corner Pockets Accent -->
+    <path
+        android:fillColor="#34D399"
+        android:pathData="M27,35m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" />
+    <path
+        android:fillColor="#34D399"
+        android:pathData="M81,35m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" />
+</vector>

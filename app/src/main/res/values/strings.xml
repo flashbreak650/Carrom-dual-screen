@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Carrom Dual Screen</string>
+    <string name="app_subtitle">Multi-Window &amp; Floating Controller</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_header_badge">ANDROID MULTI-WINDOW SUITE</string>
+    <string name="dashboard_status_checking">Checking device readiness…</string>
+    <string name="tile_start_dual_screen">Start Dual Screen</string>
+    <string name="tile_start_dual_screen_desc">Split-screen &amp; freeform dual launcher</string>
+    <string name="tile_open_carrom">Open Carrom Pool</string>
+    <string name="tile_open_carrom_desc">Launch primary game instance</string>
+    <string name="tile_split_setup">Split Screen Setup</string>
+    <string name="tile_split_setup_desc">Adjacent multi-window &amp; HiOS guide</string>
+    <string name="tile_floating_window">Floating Window</string>
+    <string name="tile_floating_window_off">Tap to start control overlay</string>
+    <string name="tile_floating_window_on">Active • Tap to stop overlay</string>
+    <string name="tile_window_settings">Window Settings</string>
+    <string name="tile_window_settings_desc">Size, opacity, snap &amp; bounds</string>
+    <string name="tile_permission_manager">Permission Manager</string>
+    <string name="tile_permission_manager_desc">Overlay, battery &amp; HiOS settings</string>
+    <string name="tile_device_compat">Device Compatibility</string>
+    <string name="tile_device_compat_desc">Tecno, Android OS &amp; game audit</string>
+    <string name="tile_help_support">Help &amp; Support</string>
+    <string name="tile_help_support_desc">Setup guide &amp; OS limitations</string>
+    <string name="rerun_setup">Run Setup Wizard</string>
+
+    <!-- Setup Wizard -->
+    <string name="setup_step_counter">Step %1$d of %2$d</string>
+    <string name="setup_btn_next">Continue</string>
+    <string name="setup_btn_back">Back</string>
+    <string name="setup_btn_skip">Skip</string>
+    <string name="setup_btn_finish">Enter Dashboard</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_name">Floating Window Controller</string>
+    <string name="notif_channel_desc">Keeps the Carrom Dual Screen floating control bar active</string>
+    <string name="notif_floating_title">Carrom Dual Screen Active</string>
+    <string name="notif_floating_text">Floating controls ready. Tap to open dashboard.</string>
+
+    <!-- Floating Window -->
+    <string name="floating_title">Dual Control</string>
+    <string name="floating_screen1">Screen 1</string>
+    <string name="floating_screen2">Screen 2</string>
+    <string name="floating_split">Split Mode</string>
+    <string name="floating_dashboard">Dashboard</string>
+    <string name="floating_note">Uses Android Multi-Window &amp; App Twin/Work Profile. Android OS does not allow copying another app\'s live game canvas into an overlay.</string>
+</resources>

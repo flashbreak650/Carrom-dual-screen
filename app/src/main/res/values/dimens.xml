@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="card_radius">18dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="tile_gap">12dp</dimen>
+    <dimen name="floating_default_width">256dp</dimen>
+    <dimen name="floating_default_height">230dp</dimen>
+    <dimen name="floating_min_width">210dp</dimen>
+    <dimen name="floating_min_height">180dp</dimen>
+</resources>

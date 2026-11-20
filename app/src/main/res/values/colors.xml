@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Obsidian Surfaces -->
+    <color name="bg_obsidian">#090D0B</color>
+    <color name="bg_surface">#101815</color>
+    <color name="bg_card">#15201B</color>
+    <color name="bg_card_elevated">#1C2B24</color>
+    <color name="stroke_subtle">#253A30</color>
+    <color name="stroke_emerald">#34D399</color>
+
+    <!-- Emerald Green Accents -->
+    <color name="emerald_neon">#00E676</color>
+    <color name="emerald_primary">#10B981</color>
+    <color name="emerald_dark">#059669</color>
+    <color name="emerald_deep">#064E3B</color>
+    <color name="emerald_glow_15">#2600E676</color>
+    <color name="emerald_glow_25">#4010B981</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#F3FAF6</color>
+    <color name="text_secondary">#9BB5A8</color>
+    <color name="text_muted">#688276</color>
+    <color name="text_on_emerald">#06120C</color>
+
+    <!-- Semantic Status Colors -->
+    <color name="status_success">#10B981</color>
+    <color name="status_success_bg">#1F10B981</color>
+    <color name="status_warning">#F59E0B</color>
+    <color name="status_warning_bg">#1FF59E0B</color>
+    <color name="status_error">#EF4444</color>
+    <color name="status_error_bg">#1FEF4444</color>
+    <color name="status_info">#38BDF8</color>
+    <color name="status_info_bg">#1F38BDF8</color>
+
+    <!-- Floating Window -->
+    <color name="floating_panel_bg">#EE0D1512</color>
+    <color name="floating_header_bg">#182620</color>
+</resources>
