@@ -78,7 +78,7 @@ object MultiWindowHelper {
                 return
             }
             onStatus("Opened Screen 1. Triggering Split-Screen…")
-            handler.postDelayed(triggerSplitAndScreen2, 950L)
+            handler.postDelayed({ triggerSplitAndScreen2() }, 950L)
         } else {
             triggerSplitAndScreen2()
         }
