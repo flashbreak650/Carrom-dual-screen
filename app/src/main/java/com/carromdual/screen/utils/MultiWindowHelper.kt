@@ -176,7 +176,7 @@ object MultiWindowHelper {
             context = context,
             packageName = packageName,
             userSerial = userSerial,
-            adjacentSplit = true,
+            adjacentSplit = !useFreeform,
             freeformBounds = bounds
         )
     }
@@ -241,6 +241,8 @@ object MultiWindowHelper {
         launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         if (adjacentSplit) {
             launchIntent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT)
+            launchIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        } else if (freeformBounds != null) {
             launchIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
         }
 
@@ -332,13 +334,17 @@ object MultiWindowHelper {
             } else {
                 Rect(halfW + pad / 2, pad * 3, width - pad, height - pad * 3)
             }
+        } else if (slotIndex == 2) {
+            // Floating Freeform box over full-screen Screen 1
+            Rect(
+                (width * 0.16f).toInt(),
+                (height * 0.22f).toInt(),
+                (width * 0.94f).toInt(),
+                (height * 0.78f).toInt()
+            )
         } else {
             val halfH = height / 2
-            if (slotIndex == 1) {
-                Rect(pad, pad * 3, width - pad, halfH - pad / 2)
-            } else {
-                Rect(pad, halfH + pad / 2, width - pad, height - pad * 3)
-            }
+            Rect(pad, pad * 3, width - pad, halfH - pad / 2)
         }
     }
 }
